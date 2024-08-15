@@ -1,0 +1,20 @@
+name: Python application
+
+on: [push] # Specifies the trigger event. In this case, the workflow runs on each push to the repository.
+
+jobs:
+  build: # Defines a job named 'build'. Jobs are a set of steps that are executed on a runner.
+    runs-on: ubuntu-latest # Specifies the operating system for the runner. 'ubuntu-latest' is a pre-configured environment provided by GitHub.
+
+    steps: # Lists the steps to be executed in this job.
+    - uses: actions/checkout@v2 # Checks out the repository content so that the workflow can access it. This is the first step in most workflows.
+    - name: Set up Python # Gives a name to this step.
+      uses: actions/setup-python@v2 # Uses the GitHub Action to set up Python.
+      with:
+        python-version: '3.x' # Specifies the version of Python to use. You can change this to the specific version your script requires.
+    - name: Install dependencies # Another step name.
+      run: | # Executes the following commands.
+        python -m pip install --upgrade pip # Upgrades pip to the latest version.
+        pip install -r requirements.txt # Installs the Python packages listed in 'requirements.txt'.
+    - name: Run Script # Name of the step to run your script.
+      run: python your_script.py # Executes your Python script. Replace `your_script.py` with the name of your script.
